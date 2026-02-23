@@ -1,7 +1,7 @@
-# Fetch latest Ubuntu 22.04 AMI in ap-south-1
+
 data "aws_ami" "ubuntu" {
   most_recent = true
-  owners      = ["099720109477"] # Canonical
+  owners      = ["099720109477"]
 
   filter {
     name   = "name"
@@ -9,8 +9,8 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-resource "aws_security_group" "mean_sg" {
-  name        = "mean-devops-sg"
+resource "aws_security_group" "mern_sg" {
+  name        = "mern-devops-sg"
   description = "Allow SSH and HTTP"
 
   ingress {
@@ -37,14 +37,14 @@ resource "aws_security_group" "mean_sg" {
   }
 }
 
-resource "aws_instance" "mean_server" {
+resource "aws_instance" "mern_server" {
   ami                    = data.aws_ami.ubuntu.id
   instance_type          = var.instance_type
   key_name               = var.key_name
-  vpc_security_group_ids = [aws_security_group.mean_sg.id]
+  vpc_security_group_ids = [aws_security_group.mern_sg.id]
 
   tags = {
-    Name = "MEAN-DevOps-Server-Mumbai"
+    Name = "MERN-DevOps-Server-Mumbai"
   }
 
   user_data = <<-EOF
@@ -57,6 +57,6 @@ resource "aws_instance" "mean_server" {
               EOF
 }
 
-resource "aws_eip" "mean_eip" {
-  instance = aws_instance.mean_server.id
+resource "aws_eip" "mern_eip" {
+  instance = aws_instance.mern_server.id
 }

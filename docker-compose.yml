@@ -9,7 +9,7 @@ services:
       - mongo-data:/data/db
 
   backend:
-    image: jeevanc31/mean-backend:latest
+    image: jeevanc31/mern-backend:latest
     container_name: backend
     restart: always
     environment:
@@ -18,7 +18,7 @@ services:
       - mongodb
 
   frontend:
-    image: jeevanc31/mean-frontend:latest
+    image: jeevanc31/mern-frontend:latest
     container_name: frontend
     restart: always
     depends_on:
